@@ -606,7 +606,7 @@ module Beaker
 
         # print out the working env
         if host.is_powershell?
-          host.exec(Command.new("SET"))
+          host.exec(Command.new('$env:PATH'))
         else
           host.exec(Command.new("cat #{host[:ssh_env_file]}"))
         end
