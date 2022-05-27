@@ -307,6 +307,7 @@ module Unix::Exec
       exec(Beaker::Command.new("echo 'PermitUserEnvironment yes' | cat - /etc/ssh/sshd_config > #{directory}/sshd_config.permit"))
       exec(Beaker::Command.new("mv #{directory}/sshd_config.permit /etc/ssh/sshd_config"))
       exec(Beaker::Command.new("echo '' >/etc/environment")) if self['platform'] =~ /ubuntu-20.04/
+      exec(Beaker::Command.new('sed -i "s/UsePAM yes/UsePAM no/" /etc/ssh/sshd_config')) if self['platform'] =~ /ubuntu-22.04/
     when /(free|open)bsd/
       exec(Beaker::Command.new("sudo perl -pi -e 's/^#?PermitUserEnvironment no/PermitUserEnvironment yes/' /etc/ssh/sshd_config"), {:pty => true} )
     else
